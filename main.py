@@ -8,7 +8,7 @@ class PythonOrgSearch():
         chrome_options.add_argument('--disable-extensions')
         chrome_options.add_argument('--headless')
         
-        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     def test_search(self, url):
         table = []
@@ -20,7 +20,7 @@ class PythonOrgSearch():
             print("Uruchomienie strony: " + str(url[i]))
             fullurl = 'https://www.udemy.com/courses/' + url[i] + '/?lang=pl&price=price-free&sort=popularity'
             self.driver.get(fullurl)
-            time.sleep(1)
+            time.sleep(4)
 
             
             pack = self.driver.find_elements_by_tag_name('a')
