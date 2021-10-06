@@ -20,19 +20,22 @@ class PythonOrgSearch():
             print("Uruchomienie strony: " + str(url[i]))
             fullurl = 'https://www.udemy.com/courses/' + url[i] + '/?lang=pl&price=price-free&sort=popularity'
             self.driver.get(fullurl)
-            time.sleep(4)
+            time.sleep(2)
 
-            
-            pack = self.driver.find_elements_by_tag_name('a')
+            find_class = self.driver.find_elements_by_class_name('component-margin')
+            find_tagname = find_class[(len(find_class)-1)].find_elements_by_tag_name('a')
 
             licznik = 0
-            for value in pack:
-                if value.get_attribute('href'):
-                    if 'course/' in value.get_attribute('href'):
-                        licznik+=1
-                        if licznik >= 7:
-                            # print(value.get_attribute('href'))
-                            table.append(value.get_attribute('href'))
+            for value in find_tagname:
+                if 'course/' in value.get_attribute('href'):
+                    licznik+=1
+                    # print(value.get_attribute('href'))
+                    table.append(value.get_attribute('href'))
+
+            if licznik >= 1:
+                print('\n(%s) Liczba znalezionych darmowych kursów: %d\n' % (str(url[i]), licznik))
+            else:
+                print('\n(%s) Liczba znalezionych darmowych kursów: 0\n' % (str(url[i])))
         return table
 
 
@@ -54,6 +57,7 @@ if __name__ == "__main__":
         'health-and-fitness',
         'music',
         'teaching-and-academics']
+
     
     main = PythonOrgSearch()
     table = main.test_search(url)
@@ -69,4 +73,6 @@ if __name__ == "__main__":
         file.write(value+"\n")
     
     file.close()
+
+    print('\nZakończono pomyślnie. :)')
 
