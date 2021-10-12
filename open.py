@@ -1,6 +1,14 @@
 import webbrowser
+import datetime
 
-file = open('Udemy-PolskieKursy 08102021.txt')
+mydate = datetime.datetime.now()
+mydate = mydate.strftime('%d%m%Y')
 
-for i in file:
-    webbrowser.open(i, new=2)
+try:
+    file = open('Udemy-PolskieKursy ' + mydate + '.txt')
+    for i in file:
+        webbrowser.open(i, new=2)
+except ValueError:
+    print('Błąd %s' % ValueError)
+
+
